@@ -6,7 +6,7 @@
 
   <groupId>com.catcoder420</groupId>
   <artifactId>cipher-library</artifactId>
-  <version>1.0.0</version>
+  <version>1.1-SNAPSHOT</version>
 
   <name>cipher-libary</name>
   <url>https://github.com/catcoder420/cipher-library</url>
