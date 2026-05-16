@@ -3,50 +3,76 @@ package com.catcoder420;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
-import java.util.Random;
-
-
 
 public class CipherTests {
-    CaesarCipher cc = new CaesarCipher(3);
     AtbashCipher ac = new AtbashCipher();
     VigenereCipher vc = new VigenereCipher("def");
-    Random r = new Random();
 
     // ==========
     // Caesar
     // ==========
 
-    @Test
-    public void testCaesarEncrypt(){
-        String result =
-            cc.encrypt("abc");
 
-        assertEquals("def", result);
+    //general Test
+    @Test 
+    public void testCaesar(){
+        int key = 8;
+        String text = "Hello World!";
+        CaesarCipher cc = new CaesarCipher(key);
+
+        String encrypted = cc.encrypt(text);
+        String decrypted = cc.decrypt(encrypted);
+
+        assertEquals(text, decrypted);
     }
 
-    @Test
-    public void testCaesarDecrypt(){
-        String result =
-            cc.decrypt("def");
-
-        assertEquals("abc", result);
-    }
-
+    //edge cases
     @Test
     public void testCaesarWrapAround(){
-        String result =
-            cc.encrypt("xyz");
+        int key = 3;
+        String text = "xyz";
+        CaesarCipher cc = new CaesarCipher(key);
+
+        String encrypted = cc.encrypt(text);
+        String decrypted = cc.decrypt(encrypted);
         
-        assertEquals("abc", result);
+        assertEquals(text, decrypted);
     }
 
     @Test
     public void testCaesarEmptyString(){
-        String result =
-            cc.encrypt("");
+        int key = 3;
+        String text = "";
+        CaesarCipher cc = new CaesarCipher(key);
         
-        assertEquals("", result);
+        String encrypted = cc.encrypt(text);
+        String decrypted = cc.decrypt(encrypted);
+        
+        assertEquals(text, decrypted);
+    }
+
+    @Test 
+    public void testCaesarBigKey(){
+        int key = 80;
+        String text = "Hello World!";
+        CaesarCipher cc = new CaesarCipher(key);
+        
+        String encrypted = cc.encrypt(text);
+        String decrypted = cc.decrypt(encrypted);
+        
+        assertEquals(text, decrypted);
+    }
+
+    @Test 
+    public void testCaesarNegativKey(){
+        int key = -3;
+        String text = "Hello World";
+        CaesarCipher cc = new CaesarCipher(key);
+        
+        String encrypted = cc.encrypt(text);
+        String decrypted = cc.decrypt(encrypted);
+
+        assertEquals(text, decrypted);
     }
 
 
