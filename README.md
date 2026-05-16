@@ -1,27 +1,31 @@
-# CIPHER-LIBARY IN JAVA
+# CIPHER-LIBRARY IN JAVA
 
-A collection of different ciphers written in Java inclouding: CaesarCipher, AtbashCipher, VigenereCipher
+A collection of different ciphers written in Java including: 
+CaesarCipher, AtbashCipher, VigenereCipher
 
-Supports encryption and decryption of lower and uppercase alphabetic text
+Supports encryption and decryption of lowercase and uppercase alphabetic text
 
 
 ## Feautures
 
 -Encrypt text
+
 -Decrypt text
+
 -Custom keys
+
 -Unit tests
 
 
 ## Example
 
 ```java
-
 Cipher cipher = new Cipher("def"); //cipher can be one of the mentioned ciphers 
 
 String encrypted = cipher.encrypt("abc"); //encrypting text "abc" with key "def"
 
 String decrypted = cipher.decrypt(encrypted); //decrypting encrypted text abc¨
+``` 
 
 
 ## Build
@@ -41,10 +45,11 @@ mvn test
 ## Project Structure
 
 src/main/java - source code
+
 src/test/java - tests
 
 
-## How the algorythems work 
+## How the algorithms work 
 
 Caesar: https://en.wikipedia.org/wiki/Caesar_cipher
 
