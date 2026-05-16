@@ -6,11 +6,10 @@
 
   <groupId>com.catcoder420</groupId>
   <artifactId>cipher-library</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>1.0.0</version>
 
   <name>cipher-libary</name>
-  <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://github.com/catcoder420/cipher-library</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
