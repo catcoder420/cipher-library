@@ -1,0 +1,6 @@
+#build directory
+target/
+
+# VS code
+.vscode/
+
