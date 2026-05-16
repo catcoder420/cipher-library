@@ -3,17 +3,38 @@ package com.catcoder420;
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
+import java.util.Random;
+
 
 public class CipherTests {
     AtbashCipher ac = new AtbashCipher();
     VigenereCipher vc = new VigenereCipher("def");
+    Random r = new Random();
+
+    // ==========
+    // Helper Functions
+    // ==========
+
+    private String randomString(){
+        char[] alphabet = 
+            "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+
+        char[] out = new char[r.nextInt(1, 100)];
+        
+        for(int i = 0; i < out.length; i++){
+            out[i] = alphabet[r.nextInt(alphabet.length)];
+        }
+
+        return new String(out);
+    }
 
     // ==========
     // Caesar
     // ==========
 
 
-    //general Test
+    // general test
+
     @Test 
     public void testCaesar(){
         int key = 8;
@@ -26,7 +47,7 @@ public class CipherTests {
         assertEquals(text, decrypted);
     }
 
-    //edge cases
+    // edge cases
     @Test
     public void testCaesarWrapAround(){
         int key = 3;
@@ -75,17 +96,79 @@ public class CipherTests {
         assertEquals(text, decrypted);
     }
 
+    @Test
+    public void testCaesarRandom(){
+
+        int i;
+
+        for(i = 0; i < 1000; i++){
+            int key = r.nextInt(100);
+            String text = randomString();
+            CaesarCipher cc = new CaesarCipher(key);
+
+            String encrypted = cc.encrypt(text);
+            String decrypted = cc.decrypt(encrypted);
+
+            if(!decrypted.equals(text)){
+                break;
+            } 
+        }
+
+        assertEquals(1000, i);
+    }
+
+
 
     // ==========
     // Atbash
     // ==========
 
-    @Test
-    public void testAtbashEncrypt(){
-        String result =
-            ac.encrypt("abc");
+    // general test 
 
-        assertEquals("zyx", result);
+    @Test
+    public void testAtbash(){
+        String text = "Hello World!";
+        AtbashCipher ac = new AtbashCipher();
+
+        String encrypted = ac.encrypt(text);
+        String decrypted = ac.decrypt(encrypted);
+
+        assertEquals(text, decrypted);
+    }
+
+    // egde cases
+
+    @Test
+    public void testAtbashEmptyString(){
+        String text = "";
+        AtbashCipher ac = new AtbashCipher();
+
+        String encrypted = ac.encrypt(text);
+        String decrypted = ac.decrypt(encrypted);
+
+        assertEquals(text, decrypted);  
+    }
+
+    // random test
+
+    @Test
+    public void testAtbashRandom(){
+
+        int i;
+
+        for(i = 0; i < 1000; i++){
+            String text = randomString();
+            AtbashCipher ac = new AtbashCipher();
+
+            String encrypted = ac.encrypt(text);
+            String decrypted = ac.decrypt(encrypted);
+
+            if(!decrypted.equals(text)){
+                break;
+            } 
+        }
+
+        assertEquals(1000, i);
     }
 
 
@@ -93,27 +176,12 @@ public class CipherTests {
     // Vigenere
     // ==========
 
-    @Test
-    public void testVigenereEncrypt(){
-        String result =
-            vc.encrypt("abc");
-        
-        assertEquals("dfh", result);
-
-    }
-
-    public void testVigenereDecrypt(){
-        String result =
-            vc.decrypt("dfh");
-
-        assertEquals("abc", result);
-    }
+    // general test
 
     @Test
     public void testVigenere(){
-        String text = "helloworld";
+        String text = "Hallo World!";
         String key = "test";
-        
         VigenereCipher vc = new VigenereCipher(key);
 
         String encrypted = vc.encrypt(text);
@@ -122,4 +190,72 @@ public class CipherTests {
         assertEquals(text, decrypted);
     }
 
+    // edge cases
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testVigenereIllegalKey(){
+        String text = "Hallo World!";
+        String key = "abcd1";
+        VigenereCipher vc = new VigenereCipher(key);
+
+        vc.encrypt(text);
+
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testVigenereEmptyKey(){
+        String text = "Hello World!";
+        String key = "";
+        VigenereCipher vc = new VigenereCipher(key);
+
+        vc.encrypt(text);
+
+    }
+
+    @Test
+    public void testVigenereLongKey(){
+        String text = "Hello World!";
+        String key = "thisisaverylongkeymuchlongerthanthetext";
+        VigenereCipher vc = new VigenereCipher(key);
+
+        String encrypted = vc.encrypt(text);
+        String decrypted = vc.decrypt(encrypted);
+
+        assertEquals(text, decrypted);
+    }
+
+    @Test
+    public void testVigenereLongKeyLongText(){
+        String text = "Hello World!".repeat(1000);
+        String key = "KeyKEY".repeat(100);
+        VigenereCipher vc = new VigenereCipher(key);
+
+        String encrypted = vc.encrypt(text);
+        String decrypted = vc.decrypt(encrypted);
+
+        assertEquals(text, decrypted);   
+    }
+
+    // random test
+
+    @Test
+    public void testVigenereRadnom(){      
+         
+        int i;
+
+        for(i = 0; i < 1000; i++){
+            String text = randomString();
+            String key = randomString();
+            VigenereCipher vc= new VigenereCipher(key);
+
+            String encrypted = vc.encrypt(text);
+            String decrypted = vc.decrypt(encrypted);
+
+            if(!decrypted.equals(text)){
+                break;
+            } 
+        }
+
+        assertEquals(1000, i);
+    }
 }

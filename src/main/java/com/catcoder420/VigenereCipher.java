@@ -5,6 +5,9 @@ public class VigenereCipher implements Cipher{
     private final String key;
 
     public VigenereCipher(String key){
+        if(key.isEmpty()){
+            throw new IllegalArgumentException("Key cannot be empty");
+        }
         this.key = key;
     }
 
@@ -48,8 +51,8 @@ public class VigenereCipher implements Cipher{
                 out[i] = (char) ('a' + index);
             }
             else if(Character.isUpperCase(input.charAt(i))){
-                int index = (((input.charAt(i) - 'a') + shift) + 26) % 26;
-                out[i] = (char) ('a' + index);
+                int index = (((input.charAt(i) - 'A') + shift) + 26) % 26;
+                out[i] = (char) ('A' + index);
             }
             else{
                 out[i] = input.charAt(i);
