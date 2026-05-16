@@ -5,7 +5,7 @@ CaesarCipher, AtbashCipher, VigenereCipher
 
 Supports encryption and decryption of lowercase and uppercase alphabetic text
 
-Ignores spaces and specialcharacters
+Ignores spaces and specialcharacters in the encryption and decryption prosess
 
 
 ## Feautures
